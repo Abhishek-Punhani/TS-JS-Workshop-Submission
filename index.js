@@ -57,6 +57,8 @@ const generated_file_name = (url, extension) => {
   return `${screenshots_folder}/${cleanUrl}-${timestamp}.${extension}`;
 };
 
+
+
 (async () => {
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_CONTEXT
@@ -64,14 +66,21 @@ const generated_file_name = (url, extension) => {
   });
 
   await cluster.task(async ({ page, data: url }) => {
-    //take to the website in headless chrome
-    await page.goto(url); 
-    console.log(`gone to site: ${url}`);
-     //creating a file name
-    const fileName = generated_file_name(url, "png");
-     //taking screenshot of full page and giving it a path where to store it
-    await page.screenshot({ path: fileName, fullPage: true });
-    console.log(`Screenshot saved: ${fileName}`);
+    try {
+      // Try to navigate to the URL
+      await page.goto(url, { waitUntil: 'load', timeout: 20000 }); // added timeout for better error handling
+      console.log(`site traveling: ${url}`);
+  
+      // create a filename for the screenshot
+      const fileName = generated_file_name(url, "png");
+  
+      // take a screenshot of the full page
+      await page.screenshot({ path: fileName, fullPage: true });
+      console.log(`Screenshot saved: ${fileName}`);
+    } catch (error) {
+      // handle the error if the URL is not valid or there is any issue loading the page
+      console.error(`Error loading URL ${url}:`, error.message);
+    }
   });
   // getting links from a array by using loop
   for (let index = 0; index < h.length; index++) {
@@ -101,3 +110,4 @@ async function pdf() {
     console.error("Error while creating PDF:", error);
   }
 }
+

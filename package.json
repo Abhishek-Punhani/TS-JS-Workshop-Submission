@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.2",
+    "image-to-pdf": "^3.0.2",
     "nodemon": "^3.1.9",
+    "path": "^0.12.7",
     "puppeteer": "^24.1.0",
     "puppeteer-cluster": "^0.24.0",
     "puppeteer-extra": "^3.3.6",

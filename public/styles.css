@@ -1,0 +1,131 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #000000;
+    line-height: inherit;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 0rem;
+}
+
+h1 {
+    text-align: center;
+    color: #4bfd81;
+    margin-bottom: 5rem;
+}
+
+.form-container {
+    background: rgb(255, 255, 255);
+    padding: 2rem;
+    border-radius: 40px;
+    box-shadow: 0 2px 6px rgb(255, 255, 255);
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 2rem;
+}
+
+input[type="url"] {
+    width: 100%;
+    padding: 1rem;
+    border: 0.2rem solid #97eed1;
+    border-radius: 30px;
+    font-size: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn.primary {
+    margin-top: 0.8rem;
+    opacity: 0.8;
+    background-color: #0059ff;
+    color: white;
+}
+
+.btn.secondary {
+    opacity: 0.8;
+    background-color: #000000;
+    color: white;
+}
+
+.btn.success {
+    background-color: #2ecc71;
+    color: white;
+    margin-top: 0rem;
+}
+
+.btn:hover {
+    opacity: 2;
+    transform: translateY(-1px);
+}
+
+.loading {
+    margin: 2rem 0;
+    color: #ffffff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.spinner {
+    margin-bottom: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ececec;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.result {
+    text-align: center;
+    margin-top: 2rem;
+    color: #ffffff;
+    padding: 20px;
+}
+.result p {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+.url-input {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}

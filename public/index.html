@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot Service</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Website Screenshot Service</h1>
+        <div class="form-container">
+            <form id="screenshotForm">
+                <div class="input-group">
+                    <input type="url" id="urlInput" placeholder="Enter website URL. for example: https://example.com" required>
+                    <button type="button" id="addUrl" class="btn secondary">Add Another URL</button>
+                </div>
+                <div id="urlList"></div>
+                <button type="submit" class="btn primary">Generate PDF Report</button>
+            </form>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Generating PDF report...</p>
+        </div>
+
+        <div class="result" id="result" style="display: none;">
+            <p>PDF ready! Download your report:</p>
+            <a id="downloadLink" class="btn success" download>Download PDF</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addUrl').addEventListener('click', function() {
+            const newInput = document.createElement('input');
+            newInput.type = 'url';
+            newInput.className = 'url-input';
+            newInput.placeholder = 'Enter additional URL';
+            document.getElementById('urlList').appendChild(newInput);
+        });
+
+        document.getElementById('screenshotForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const urls = Array.from(document.querySelectorAll('.url-input, #urlInput'))
+                            .map(input => input.value)
+                            .filter(value => value);
+
+            if (urls.length === 0) {
+                alert('Please enter at least one valid URL');
+                return;
+            }
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+
+            try {
+                const response = await fetch('/generate-pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ urls }),
+                });
+
+                if (!response.ok) throw new Error('Server error');
+                
+                const result = await response.json();
+                document.getElementById('downloadLink').href = result.downloadUrl;
+                document.getElementById('result').style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error generating PDF. Please try again.');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

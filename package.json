@@ -1,0 +1,21 @@
+{
+  "name": "ts-js-workshop-submission",
+  "version": "1.0.0",
+  "description": "Required Modules",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Kshitij",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "path": "^0.12.7",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.1.1",
+    "puppeteer-cluster": "^0.24.0"
+  }
+}
